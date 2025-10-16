@@ -1,0 +1,66 @@
+{
+  "name": "claude-stack",
+  "owner": {
+    "name" : "Josef Hardi",
+    "email": "josef.hardi@gmail.com",
+    "url"  : "https://github.com/johardi"
+  },
+  "metadata": {
+    "description": "My personal plugins for code development and standardization that provides reusable components, agents, and tools to maintain consistency across projects",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "cstack-essential",
+      "source": "./",
+      "description": "Essential development bundle with onboarding commands, GitHub issue analysis and fixes, audio notification hooks on Claude Code events, and integrated MCP servers",
+      "version": "1.0.0",
+      "homepage": "https://github.com/johardi/claude-stack",
+      "repository": "https://github.com/johardi/claude-stack",
+      "license": "MIT",
+      "keywords": ["essential"],
+      "category": "code-development",
+      "strict": false,
+      "commands": [
+        "./commands/onboard.md",
+        "./commands/issue.md"
+      ],
+      "hooks": {
+        "Notification": [{
+          "hooks": [{
+              "type": "command",
+              "command": "python3 ${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py"
+            }]
+        }],
+        "Stop": [{
+          "hooks": [{
+              "type": "command",
+              "command": "python3 ${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py"
+            }]
+        }],
+        "PreToolUse": [{
+          "matcher": "Edit|MultiEdit|Write|NotebookEdit|TodoWrite|Bash",
+          "hooks": [{
+              "type": "command",
+              "command": "python3 ${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py"
+            }]
+        }]
+      },
+      "mcpServers": {
+        "serena": {
+          "type": "stdio",
+          "command": "sh",
+          "args": [
+            "-c",
+            "uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project \"$(pwd)\""
+          ]
+        },
+        "context7": {
+          "type": "stdio",
+          "command": "npx",
+          "args": ["-y", "@upstash/context7-mcp"]
+        }
+      }
+    }
+  ]
+}
