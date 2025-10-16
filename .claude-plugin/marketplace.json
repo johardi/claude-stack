@@ -12,7 +12,7 @@
   "plugins": [
     {
       "name": "cstack-essential",
-      "source": "./",
+      "source": "./plugins/cstack-essential",
       "description": "Essential development bundle with onboarding commands, GitHub issue analysis and fixes, audio notification hooks on Claude Code events, and integrated MCP servers",
       "version": "1.0.0",
       "homepage": "https://github.com/johardi/claude-stack",
@@ -21,6 +21,10 @@
       "keywords": ["essential"],
       "category": "code-development",
       "strict": false,
+      "agents": [
+        "./debugger.md",
+        "./github-actions-specialist.md"
+      ],
       "commands": [
         "./commands/onboard.md",
         "./commands/issue.md"
@@ -61,6 +65,52 @@
           "args": ["-y", "@upstash/context7-mcp"]
         }
       }
+    },
+    {
+      "name": "cstack-web",
+      "source": "./plugins/cstack-web",
+      "description": "Web development bundle with expert agents for React/Next.js frontend development, debugging, and cloud architecture. Includes specialists for modern UI/UX, performance optimization, and infrastructure design.",
+      "version": "1.0.0",
+      "homepage": "https://github.com/johardi/claude-stack",
+      "repository": "https://github.com/johardi/claude-stack",
+      "license": "MIT",
+      "keywords": ["web", "development"],
+      "category": "code-development",
+      "strict": false,
+      "agents": [
+        "./frontend-developer.md",
+        "./cloud-architect.md"
+      ]
+    },
+    {
+      "name": "cstack-java",
+      "source": "./plugins/cstack-java",
+      "description": "Java development bundle with expert agents for Java 18+ enterprise applications, Spring Boot, and microservices. Includes specialists for modern Java features, debugging, and cloud infrastructure design.",
+      "version": "1.0.0",
+      "homepage": "https://github.com/johardi/claude-stack",
+      "repository": "https://github.com/johardi/claude-stack",
+      "license": "MIT",
+      "keywords": ["java", "development"],
+      "category": "code-development",
+      "strict": false,
+      "agents": [
+        "./java-pro.md"
+      ]
+    },
+    {
+      "name": "cstack-python",
+      "source": "./plugins/cstack-python",
+      "description": "Python development bundle with expert agents for Python 3.12+ applications, FastAPI, and async patterns. Includes specialists for modern Python features, performance optimization, debugging, and cloud infrastructure.",
+      "version": "1.0.0",
+      "homepage": "https://github.com/johardi/claude-stack",
+      "repository": "https://github.com/johardi/claude-stack",
+      "license": "MIT",
+      "keywords": ["python", "development"],
+      "category": "code-development",
+      "strict": false,
+      "agents": [
+        "./python-pro.md"
+      ]
     }
   ]
 }
