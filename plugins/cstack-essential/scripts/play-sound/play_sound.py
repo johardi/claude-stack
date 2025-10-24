@@ -5,14 +5,24 @@ Claude Code Hook Handler
 This script handles events from Claude Code and plays sounds for different actions.
 It demonstrates event-driven programming and pattern matching in Python.
 
-Credit: Greg Baugues at https://www.haihai.ai/hooks/
+Cross-platform support: Windows, macOS, and Linux
+
+Sound format selection:
+    - Windows: Uses WAV files from sounds/wav/ (PowerShell SoundPlayer)
+    - macOS: Uses MP3 files from sounds/mp3/ (afplay)
+    - Linux: Uses MP3 files from sounds/mp3/ (mpg123, ffplay, paplay, or aplay)
+
+Requirements: None (uses platform-native commands, no external dependencies)
+
+Credit: Greg Baugues at https://www.haihai.ai/hooks/ for the initial codebase.
 """
 
 import sys
 import json
-import subprocess
 from pathlib import Path
 import re
+import platform
+import subprocess
 
 # ===== SOUND MAPPINGS =====
 # This dictionary maps Claude Code events and tools to sound files
@@ -50,7 +60,11 @@ SOUND_MAP = {
 
 def play_sound(sound_name):
     """
-    Play a sound file using macOS's afplay command.
+    Play a sound file using platform-native commands.
+    Cross-platform: Windows, macOS, Linux
+
+    Windows uses WAV files (sounds/wav/)
+    macOS and Linux use MP3 files (sounds/mp3/)
 
     Args:
         sound_name: Name of the sound file (without extension)
@@ -63,29 +77,60 @@ def play_sound(sound_name):
         print(f"Invalid sound name: {sound_name}", file=sys.stderr)
         return False
 
-    # Build the path to the sound file
+    # Detect OS and select appropriate format
+    system = platform.system()
     script_dir = Path(__file__).parent
-    sounds_dir = script_dir / "sounds"
 
-    # Try different audio formats
-    for extension in ['.wav', '.mp3']:
-        file_path = sounds_dir / f"{sound_name}{extension}"
+    if system == "Windows":
+        # Windows: use WAV files
+        sounds_dir = script_dir / "sounds" / "wav"
+        extension = ".wav"
+    else:
+        # macOS and Linux: use MP3 files
+        sounds_dir = script_dir / "sounds" / "mp3"
+        extension = ".mp3"
 
-        if file_path.exists():
-            try:
-                # Play sound in background so we don't block Claude
+    # Build the path to the sound file
+    file_path = sounds_dir / f"{sound_name}{extension}"
+
+    if file_path.exists():
+        try:
+            if system == "Darwin":  # macOS
                 subprocess.Popen(
-                    ["afplay", str(file_path)],           # macOS audio player
-                    stdout=subprocess.DEVNULL,            # Hide output
-                    stderr=subprocess.DEVNULL             # Hide errors
+                    ["afplay", str(file_path)],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL
                 )
-                return True
-            except (FileNotFoundError, OSError) as e:
-                # Log error but don't crash
-                print(f"Error playing sound {file_path.name}: {e}", file=sys.stderr)
-                return False
+            elif system == "Windows":
+                # Use PowerShell SoundPlayer for WAV files
+                subprocess.Popen(
+                    ["powershell", "-c",
+                     f"(New-Object Media.SoundPlayer '{file_path}').PlaySync()"],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL
+                )
+            elif system == "Linux":
+                # Try common Linux audio players
+                for player in ["mpg123", "ffplay", "paplay", "aplay"]:
+                    try:
+                        subprocess.Popen(
+                            [player, str(file_path)],
+                            stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL
+                        )
+                        break
+                    except FileNotFoundError:
+                        continue
+
+            return True
+
+        except Exception as e:
+            # Log error but don't crash
+            print(f"Error playing sound {file_path.name}: {e}", file=sys.stderr)
+            return False
 
     # Sound not found - fail silently to avoid disrupting Claude's work
+    print(f"Sound file not found: {file_path}", file=sys.stderr)
     return False
 
 def log_hook_data(hook_data):
