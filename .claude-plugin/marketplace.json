@@ -59,6 +59,11 @@
           "type": "stdio",
           "command": "npx",
           "args": ["-y", "@upstash/context7-mcp"]
+        },
+        "ref": {
+          "type": "stdio",
+          "command": "npx",
+          "args": ["ref-tools-mcp@latest"]
         }
       }
     },
