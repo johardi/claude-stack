@@ -21,10 +21,6 @@
       "keywords": ["essential"],
       "category": "code-development",
       "strict": false,
-      "agents": [
-        "./debugger.md",
-        "./github-actions-specialist.md"
-      ],
       "commands": [
         "./commands/onboard.md",
         "./commands/issue.md"
