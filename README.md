@@ -33,6 +33,8 @@ Claude Stack is a modular plugin ecosystem designed to supercharge your developm
 - **MCP Servers**:
   - Serena - Advanced IDE assistant with code navigation and analysis
   - Context7 - Contextual code understanding via Upstash
+- **Skills**:
+  - Terminal Title Skill for Claude Code by [bluzername](https://github.com/bluzername)
 
 **Hooks Configuration**:
 - `Notification` - Sound when Claude is ready
