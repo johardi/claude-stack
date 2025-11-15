@@ -35,7 +35,7 @@ Automatically sets descriptive terminal window titles based on the task Claude i
 
 1. **Extract Task Summary**: Analyze the user's prompt to identify the high-level task
 2. **Generate Title**: Create a concise, descriptive title (max 40 characters)
-3. **Set Title**: Execute the `${CLAUDE_PLUGIN_ROOT}/skills/terminal-title-skill/scripts/set_title.sh` script with the generated title
+3. **Set Title**: Execute the `~/.claude/plugins/marketplaces/claude-stack/plugins/cstack-essential/skills/terminal-title-skill/scripts/set_title.sh` script with the generated title
 4. **No Confirmation Needed**: This happens automatically in the background
 
 ## Title Format Guidelines
@@ -83,19 +83,19 @@ Keep titles concise, actionable, and immediately recognizable.
 
 **Execute the title script:**
 ```bash
-bash ${CLAUDE_PLUGIN_ROOT}/skills/terminal-title-skill/scripts/set_title.sh "Your Title Here"
+bash ~/.claude/plugins/marketplaces/claude-stack/plugins/cstack-essential/skills/terminal-title-skill/scripts/set_title.sh "Your Title Here"
 ```
 
 **Example workflow:**
 ```bash
 # User asks: "Help me debug the authentication flow in the API"
-bash ${CLAUDE_PLUGIN_ROOT}/skills/terminal-title-skill/scripts/set_title.sh "Debug: Auth API Flow"
+bash ~/.claude/plugins/marketplaces/claude-stack/plugins/cstack-essential/skills/terminal-title-skill/scripts/set_title.sh "Debug: Auth API Flow"
 
 # User asks: "Create a React component for the user profile page"
-bash ${CLAUDE_PLUGIN_ROOT}/skills/terminal-title-skill/scripts/set_title.sh "Build: User Profile UI"
+bash ~/.claude/plugins/marketplaces/claude-stack/plugins/cstack-essential/skills/terminal-title-skill/scripts/set_title.sh "Build: User Profile UI"
 
 # User asks: "Write tests for the payment processing module"
-bash ${CLAUDE_PLUGIN_ROOT}/skills/terminal-title-skill/scripts/set_title.sh "Test: Payment Module"
+bash ~/.claude/plugins/marketplaces/claude-stack/plugins/cstack-essential/skills/terminal-title-skill/scripts/set_title.sh "Test: Payment Module"
 ```
 
 ## Script Details
