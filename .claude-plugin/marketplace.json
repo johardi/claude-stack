@@ -25,6 +25,9 @@
         "./commands/onboard.md",
         "./commands/issue.md"
       ],
+      "skills": [
+        "./skills/terminal-title-skill/SKILL.md"
+      ],
       "hooks": {
         "Notification": [{
           "hooks": [{
