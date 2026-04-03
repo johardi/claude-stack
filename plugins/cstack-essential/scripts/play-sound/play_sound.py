@@ -49,11 +49,11 @@ SOUND_MAP = {
     # Bash command patterns - matched using regular expressions
     # Format: (regex_pattern, sound_name)
     "bash_patterns": [
-        (r'^git commit', "commit"),                              # Git commits
+        (r'^git commit', "edit"),                               # Git commits
         (r'^gh pr', "pr"),                                      # GitHub pull requests
         (r'^bundle exec rspec|^rspec|^bin/rspec', "test"),     # Ruby tests
         (r'^npm test|^yarn test|^pytest|^go test', "test"),    # Various test runners
-        (r'.*', "bash"),  # Fallback: play "bash" sound for any unmatched Bash command
+        (r'.*', "notify"),  # Fallback: play "notify" sound for any unmatched Bash command
         # Add your own patterns here!
     ]
 }

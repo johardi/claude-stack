@@ -21,44 +21,41 @@
       "keywords": ["essential"],
       "category": "code-development",
       "strict": false,
-      "commands": [
-        "./commands/onboard.md",
-        "./commands/issue.md"
-      ],
       "hooks": {
         "Notification": [{
           "hooks": [{
               "type": "command",
-              "command": "python ${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py"
+              "command": "test -f \"${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py\" && python \"${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py\" || true"
             }]
         }],
         "Stop": [{
           "hooks": [{
               "type": "command",
-              "command": "python ${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py"
+              "command": "test -f \"${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py\" && python \"${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py\" || true"
             }]
         }],
         "PreToolUse": [{
-          "matcher": "Edit|MultiEdit|Write|NotebookEdit|TodoWrite|Bash",
+          "matcher": "Edit|MultiEdit|Write|NotebookEdit|TodoWrite|Bash|Read|NotebookRead",
           "hooks": [{
               "type": "command",
-              "command": "python ${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py"
+              "command": "test -f \"${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py\" && python \"${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py\" || true"
             }]
         }]
       },
       "mcpServers": {
         "serena": {
           "type": "stdio",
-          "command": "sh",
+          "command": "uvx",
           "args": [
-            "-c",
-            "uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project \"$(pwd)\""
+            "--from", 
+            "git+https://github.com/oraios/serena",
+            "serena", 
+            "start-mcp-server",
+            "--open-web-dashboard",
+            "False",
+            "--project",
+            "\"$(pwd)\""
           ]
-        },
-        "context7": {
-          "type": "stdio",
-          "command": "npx",
-          "args": ["-y", "@upstash/context7-mcp"]
         },
         "ref": {
           "type": "stdio",
@@ -66,52 +63,6 @@
           "args": ["ref-tools-mcp@latest"]
         }
       }
-    },
-    {
-      "name": "cstack-web",
-      "source": "./plugins/cstack-web",
-      "description": "Web development bundle with expert agents for React/Next.js frontend development, debugging, and cloud architecture. Includes specialists for modern UI/UX, performance optimization, and infrastructure design.",
-      "version": "1.0.0",
-      "homepage": "https://github.com/johardi/claude-stack",
-      "repository": "https://github.com/johardi/claude-stack",
-      "license": "MIT",
-      "keywords": ["web", "development"],
-      "category": "code-development",
-      "strict": false,
-      "agents": [
-        "./frontend-developer.md",
-        "./cloud-architect.md"
-      ]
-    },
-    {
-      "name": "cstack-java",
-      "source": "./plugins/cstack-java",
-      "description": "Java development bundle with expert agents for Java 18+ enterprise applications, Spring Boot, and microservices. Includes specialists for modern Java features, debugging, and cloud infrastructure design.",
-      "version": "1.0.0",
-      "homepage": "https://github.com/johardi/claude-stack",
-      "repository": "https://github.com/johardi/claude-stack",
-      "license": "MIT",
-      "keywords": ["java", "development"],
-      "category": "code-development",
-      "strict": false,
-      "agents": [
-        "./java-pro.md"
-      ]
-    },
-    {
-      "name": "cstack-python",
-      "source": "./plugins/cstack-python",
-      "description": "Python development bundle with expert agents for Python 3.12+ applications, FastAPI, and async patterns. Includes specialists for modern Python features, performance optimization, debugging, and cloud infrastructure.",
-      "version": "1.0.0",
-      "homepage": "https://github.com/johardi/claude-stack",
-      "repository": "https://github.com/johardi/claude-stack",
-      "license": "MIT",
-      "keywords": ["python", "development"],
-      "category": "code-development",
-      "strict": false,
-      "agents": [
-        "./python-pro.md"
-      ]
     }
   ]
 }
