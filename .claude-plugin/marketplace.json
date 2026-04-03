@@ -55,9 +55,7 @@
             "serena", 
             "start-mcp-server",
             "--open-web-dashboard",
-            "False",
-            "--project",
-            "\"$(pwd)\""
+            "False"
           ]
         },
         "ref": {
