@@ -42,6 +42,9 @@
             }]
         }]
       },
+      "skills": [
+        "./skills/github-issue-workflow/SKILL.md"
+      ],
       "mcpServers": {
         "serena": {
           "type": "stdio",
