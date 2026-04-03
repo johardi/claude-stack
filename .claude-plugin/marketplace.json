@@ -43,7 +43,7 @@
         }]
       },
       "skills": [
-        "./skills/github-issue-workflow/SKILL.md"
+        "./skills/github-issue-workflow"
       ],
       "mcpServers": {
         "serena": {
