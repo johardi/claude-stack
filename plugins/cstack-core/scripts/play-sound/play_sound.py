@@ -49,7 +49,6 @@ SOUND_MAP = {
         (r'^gh pr', "pr"),                                      # GitHub pull requests
         (r'^bundle exec rspec|^rspec|^bin/rspec', "test"),     # Ruby tests
         (r'^npm test|^yarn test|^pytest|^go test', "test"),    # Various test runners
-        (r'.*', "notify"),  # Fallback: play "notify" sound for any unmatched Bash command
         # Add your own patterns here!
     ]
 }
