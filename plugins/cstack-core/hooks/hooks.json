@@ -13,7 +13,7 @@
       }]
     }],
     "PreToolUse": [{
-      "matcher": "Edit|MultiEdit|Write|NotebookEdit|TodoWrite|Bash|Read|NotebookRead",
+      "matcher": "Edit|MultiEdit|Write|NotebookEdit|TodoWrite|Bash",
       "hooks": [{
         "type": "command",
         "command": "test -f \"${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py\" && python \"${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py\" || true"

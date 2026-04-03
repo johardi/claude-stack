@@ -42,10 +42,6 @@ SOUND_MAP = {
     # Task management
     "TodoWrite": "list",       # Update todo list
 
-    # Read files
-    "Read": "read",            # Read file content
-    "NotebookRead": "read",    # Read Jupyter notebook
-
     # Bash command patterns - matched using regular expressions
     # Format: (regex_pattern, sound_name)
     "bash_patterns": [
