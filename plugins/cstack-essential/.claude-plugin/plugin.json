@@ -1,0 +1,6 @@
+{
+  "name": "cstack-essential",
+  "description": "Essential development bundle with audio notification hooks on Claude Code events and integrated MCP servers",
+  "version": "1.3.0",
+  "skills": "./skills/"
+}
