@@ -1,5 +1,5 @@
 {
-  "description": "Enforce ontology-builder workflow: block OWL edits until a proposal is approved",
+  "description": "Enforce ontology-builder workflow guardrails",
   "hooks": {
     "PreToolUse": [
       {
@@ -9,6 +9,16 @@
             "type": "command",
             "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/check-approved-proposal.sh",
             "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/block-owl-hand-edit.sh",
+            "timeout": 5
           }
         ]
       }
