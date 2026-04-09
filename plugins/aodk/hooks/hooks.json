@@ -21,6 +21,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "mcp__owl__set_ontology_iri",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/validate-ontology-iri.sh",
+            "timeout": 5
+          }
+        ]
       }
     ]
   }
