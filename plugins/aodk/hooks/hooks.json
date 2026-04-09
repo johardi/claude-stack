@@ -1,0 +1,17 @@
+{
+  "description": "Enforce ontology-builder workflow: block OWL edits until a proposal is approved",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__owl__add_axiom|mcp__owl__add_axioms|mcp__owl__remove_axiom|mcp__owl__add_prefix|mcp__owl__set_ontology_iri",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/check-approved-proposal.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
