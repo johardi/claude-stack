@@ -1,0 +1,13 @@
+{
+  "name": "aodk",
+  "version": "1.0.0",
+  "description": "AI-powered ontology development with a 7-step workflow, OWL-MCP editing, ODK/ROBOT tools, 55+ ontology design patterns, and competency question verification",
+  "author": {
+    "name": "Josef Hardi",
+    "email": "josef.hardi@gmail.com",
+    "url": "https://github.com/johardi"
+  },
+  "repository": "https://github.com/johardi/claude-stack",
+  "license": "MIT",
+  "keywords": ["ontology", "owl", "odk", "robot", "knowledge-engineering"]
+}

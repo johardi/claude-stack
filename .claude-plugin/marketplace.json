@@ -7,7 +7,7 @@
   },
   "metadata": {
     "description": "My personal plugins for code development and standardization that provides reusable components, agents, and tools to maintain consistency across projects",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "plugins": [
     {
@@ -20,6 +20,18 @@
       "license": "MIT",
       "keywords": ["core", "development"],
       "category": "code-development",
+      "strict": false
+    },
+    {
+      "name": "aodk",
+      "source": "./plugins/aodk",
+      "description": "AI-powered ontology development with a 7-step workflow, OWL-MCP editing, ODK/ROBOT tools, 55+ ontology design patterns, and competency question verification",
+      "version": "1.0.0",
+      "homepage": "https://github.com/johardi/claude-stack",
+      "repository": "https://github.com/johardi/claude-stack",
+      "license": "MIT",
+      "keywords": ["ontology", "owl", "odk", "robot", "knowledge-engineering"],
+      "category": "knowledge-engineering",
       "strict": false
     }
   ]

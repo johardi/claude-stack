@@ -1,0 +1,7 @@
+{
+  "owl": {
+    "type": "stdio",
+    "command": "npx",
+    "args": ["-y", "owl-mcp@latest", "serve"]
+  }
+}
