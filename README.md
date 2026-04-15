@@ -16,6 +16,7 @@ Claude Stack is a modular plugin ecosystem designed to supercharge your developm
 
 **Skills**:
 - `github-issue-workflow` - Structured 8-phase workflow for resolving GitHub issues: fetch details, analyze requirements, implement, verify, review, commit, and create PRs
+- `karpathy-guidelines` - Behavioral guidelines to reduce common LLM coding mistakes: think before coding, simplicity first, surgical changes, and goal-driven execution
 
 **Audio Notifications**: Cross-platform sound feedback for Claude Code events (macOS/Linux: MP3, Windows: WAV)
 
@@ -194,6 +195,7 @@ MIT License - see LICENSE file for details.
 ## Credits
 
 - **aodk** plugin is based on the [Agentic Ontology Development Kit](https://github.com/Minitour/agentic-ontology-development-kit) by [Antonio Zaitoun](https://github.com/Minitour) ([@Minitour](https://github.com/Minitour)), converted from a capa-based project to a Claude Code plugin
+- **karpathy-guidelines** skill by [Jiayuan Zhang](https://github.com/forrestchang) ([@forrestchang](https://github.com/forrestchang)), from [andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)
 - Audio hook implementation inspired by [Greg Baugues](https://www.haihai.ai/hooks/)
 - Built for [Claude Code](https://claude.com/claude-code) by Anthropic
 
