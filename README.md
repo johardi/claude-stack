@@ -29,50 +29,6 @@ Claude Stack is a modular plugin ecosystem designed to supercharge your developm
 - [Serena](https://github.com/oraios/serena) - Advanced IDE assistant with code navigation and analysis
 - [ref-tools-mcp](https://www.npmjs.com/package/ref-tools-mcp) - Library and framework documentation search
 
-### aodk
-
-**Agentic Ontology Development Kit** - Build and edit OWL ontologies with AI assistance.
-
-A Claude Code plugin that provides a 7-step ontology development workflow: scope definition, knowledge exploration, organization, draft proposals with user approval gates, OWL formalization via MCP, and automated review with competency question verification.
-
-**Agent**:
-- `ontology-builder` - Collaborative ontology engineering agent that follows a structured, iterative workflow with user-in-the-loop approval at key decision points
-
-**Skills** (9 total):
-
-| Skill | Purpose |
-|-------|---------|
-| `ontology-editor` | OWL axiom editing via OWL-MCP (add/remove axioms, prefixes, IRI, pitfall scanning) |
-| `odk-robot` | Run ROBOT in ODK Docker (verify, merge, reason, convert, template, query) |
-| `odk-run` | Run custom Make targets or other ODK tools (Konclude, Jena, etc.) |
-| `cq-verification` | Verify competency questions against ontologies using SPARQL + test data |
-| `odp-pattern-selector` | Browse and select from 55+ Ontology Design Patterns |
-| `analyze-project` | Understand external ontology repo structure and contribution conventions |
-| `clone-project` | Clone ontology repos into `projects/` for local contribution |
-| `review-issue` | Summarize and triage ontology repo issues (NTR, synonym, obsoletion, etc.) |
-| `create-pull-request` | Create branch, commit, push, and open PR from project directory |
-
-**Hooks** (4 PreToolUse guardrails):
-
-| Hook | Enforces |
-|------|----------|
-| `check-approved-proposal` | Block OWL writes until a PROPOSAL file has `status: approved` |
-| `block-owl-hand-edit` | Prevent Write/Edit on `.owl/.rdf/.ofn/.owx/.ttl` files |
-| `validate-ontology-iri` | Reject CURIEs in `set_ontology_iri` (must be full HTTP IRIs) |
-| `block-raw-robot` | Block raw `robot`/`make` commands outside the ODK Docker wrapper |
-
-**MCP Server**:
-- [owl-mcp](https://github.com/Minitour/owl-mcp) - OWL ontology editing via Model Context Protocol (axioms, prefixes, metadata, pitfall scanning)
-
-**Bundled Resources**:
-- 55+ Ontology Design Pattern reference files from [ontologydesignpatterns.org](http://ontologydesignpatterns.org)
-- Upper-level ontologies: [BFO](http://purl.obolibrary.org/obo/bfo.owl) and [SULO](https://w3id.org/sulo/)
-- ODK Docker wrapper scripts for ROBOT and other ontology tools
-
-**Prerequisites** (in addition to base requirements):
-- [Docker](https://docs.docker.com/get-docker/) - Required for ODK tools (ROBOT, owltools, Jena, etc.)
-- [Node.js](https://nodejs.org/) v18+ - Required for ODK wrapper scripts
-
 ### cstack-collab
 
 **Multi-agent collaboration patterns** - Coordinate a parent GitHub issue that has been broken into dependent sub-tickets, with one PR per sub-ticket and human-in-the-loop merge gates. Pairs an upfront authoring skill with a runtime orchestrator.
@@ -143,7 +99,6 @@ In Claude Code, type `/plugin` and select **"Browse Plugins"**, then:
 
 1. Browse the available plugins:
    - **cstack-core** - Core development tools with audio feedback and MCP servers
-   - **aodk** - AI-powered ontology development with OWL-MCP, ODK/ROBOT, and design patterns
    - **cstack-collab** - Multi-agent orchestration with worktree-isolated workers and human-in-the-loop merge gates
    - **cstack-guardrails** - Always-on git/gh hygiene hooks (no-verify, force-push to main, commit on main)
 
@@ -241,7 +196,6 @@ MIT License - see LICENSE file for details.
 
 ## Credits
 
-- **aodk** plugin is based on the [Agentic Ontology Development Kit](https://github.com/Minitour/agentic-ontology-development-kit) by [Antonio Zaitoun](https://github.com/Minitour) ([@Minitour](https://github.com/Minitour)), converted from a capa-based project to a Claude Code plugin
 - **karpathy-guidelines** skill by [Jiayuan Zhang](https://github.com/forrestchang) ([@forrestchang](https://github.com/forrestchang)), from [andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)
 - Audio hook implementation inspired by [Greg Baugues](https://www.haihai.ai/hooks/)
 - Built for [Claude Code](https://claude.com/claude-code) by Anthropic
