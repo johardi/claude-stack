@@ -91,6 +91,14 @@ If the user picks "Edit a draft", iterate on that one draft and re-confirm.
 
 ### Phase 6 — File on GitHub
 
+Before filing anything, lint every draft body deterministically:
+
+```
+${CLAUDE_PLUGIN_ROOT}/scripts/lint-ticket.py --file <draft.md>
+```
+
+Run it on the parent body and on every child body. Exit 0 means the draft conforms to the standardized format that `orchestrate-tickets` and `build-dag.py` consume (required sections present, every `Depends on …` carries a `#N`, child bodies have `Sub-ticket of #N`, parent has a populated `## Tracking` checklist). Exit 2 prints the violations on stderr — fix the draft and re-lint until clean. Do **not** file a body that has not passed the linter; non-conforming bodies break the orchestration even when they look right to the human eye.
+
 In order:
 
 1. **File the parent first**:
@@ -196,6 +204,7 @@ Parent: #<PARENT>.
 
 ## Guardrails
 
+- **Lint before filing**: every draft body MUST pass `${CLAUDE_PLUGIN_ROOT}/scripts/lint-ticket.py` before you call `gh issue create`. The linter catches the prose-vs-marker bug ("Depends on the X sub-ticket" without `#N`) and missing required sections — both invisible defects that silently break `orchestrate-tickets` later.
 - **Two confirmation gates** (Phase 4 and Phase 5). Never file without both.
 - **Single-ticket fallback**: if heuristics don't justify decomposition, recommend `github-issue-workflow` and stop. Do not invent children.
 - **Never auto-close a parent**. That belongs to `orchestrate-tickets` Phase 5 and still requires user approval there.
