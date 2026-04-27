@@ -294,26 +294,73 @@ BRANCH_NAME="${BRANCH_PREFIX}/${ISSUE_NUMBER}-${DESCRIPTION_SLUG}"
 git checkout -b "$BRANCH_NAME"
 ```
 
-3. **Stage and commit** following Conventional Commits:
-```bash
-git add -A
+3. **Stage and commit as a series of atomic commits** following Conventional Commits.
 
-git commit -m "<type>(<scope>): <description>
+   **Do not** stage the whole tree with `git add -A` and ship one mega-commit. Instead, group your changes by logical unit and produce one commit per unit, in an order that reads as a coherent sequence to a reviewer.
 
-<detailed body explaining the changes>
+   **One commit per logical change.** Examples of logical units that should usually be their own commit:
+   - schema / migration / type definitions (foundations come first)
+   - core domain logic / model methods
+   - integration glue (controllers, views, routes)
+   - UI / templates / styling
+   - tests
+   - docs / chore / config
 
-Closes #<ISSUE_NUMBER>"
-```
+   Tightly coupled work can be bundled — e.g., a model field + the migration that adds it, or a view + the template it renders. Tests can ride with the code they exercise instead of a trailing `test:` commit when that reads better. Use judgement.
 
-**Commit type selection:**
-- `feat`: New feature (label: enhancement)
-- `fix`: Bug fix (label: bug)
-- `docs`: Documentation changes
-- `refactor`: Code refactoring
-- `test`: Test additions/modifications
-- `chore`: Maintenance tasks
+   **Scope, not size.** A one-line bug fix is one commit. A typo fix is one commit. The point is *one purpose per commit*, not commit-padding. Don't split for the sake of splitting.
 
-4. **Push the branch**:
+   **Stage selectively** so each commit captures only the files (or hunks) for its logical unit:
+   ```bash
+   git add path/to/file1 path/to/file2          # by path
+   git add -p                                    # by hunk, when a single file mixes purposes
+   git status                                    # confirm exactly what's staged before each commit
+   ```
+
+   **Conventional Commits subject** for every commit: `<type>(<scope>): <subject>`. Body explains the **why**, not the what.
+
+   **Commit type selection:**
+   - `feat`: New feature (label: enhancement)
+   - `fix`: Bug fix (label: bug)
+   - `docs`: Documentation changes
+   - `refactor`: Code refactoring
+   - `test`: Test additions/modifications
+   - `chore`: Maintenance tasks
+
+   ```bash
+   # Example: a feature ticket that touches schema + logic + UI + tests
+   git add db/migrations/20260427_add_email_field.sql src/models/user.ts
+   git commit -m "feat(user): add email field to user model
+
+   Reviewers: this is the foundation for #42 — later commits build the
+   validation layer and UI on top of this column."
+
+   git add src/utils/validators.ts src/tests/validators.test.ts
+   git commit -m "feat(validation): add RFC 5322 email validator
+
+   Pulled in validator.js so we don't reinvent RFC 5322. Tests cover
+   the edge cases called out in the issue."
+
+   git add src/controllers/auth.ts
+   git commit -m "feat(auth): reject registrations with invalid emails
+
+   Returns 400 with a descriptive error rather than 500ing further
+   downstream when the DB constraint trips."
+
+   git add src/components/RegisterForm.tsx
+   git commit -m "feat(ui): surface email validation errors inline"
+   ```
+
+   **Branch HEAD must be green** (tests + linters pass) before you push. Per-commit greenness is preferred but not required for tightly coupled commits where the intermediate state is briefly broken — only the tip needs to pass CI.
+
+   **No `Closes #N` trailer in commit messages.** The PR body (Phase 8) carries the `Closes #<ISSUE_NUMBER>` line so issue auto-close still works under squash-merge policies. The last commit MAY include the trailer as a convenience but it is not required, and earlier commits MUST NOT.
+
+   **Hard rules** (unchanged):
+   - No `--no-verify`. Pre-commit hooks run on every commit.
+   - No `--no-gpg-sign`.
+   - Do not amend or rewrite commits that have already been pushed.
+
+4. **Push the branch** — once, after all commits are in place. Do not push between commits.
 ```bash
 git push -u origin "$BRANCH_NAME"
 ```

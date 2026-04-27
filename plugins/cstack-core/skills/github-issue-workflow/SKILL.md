@@ -87,7 +87,7 @@ Run full test suite, linters, static analysis, verify against acceptance criteri
 Launch code review sub-agent, categorize findings by severity, address critical/major issues, present minor issues to user.
 
 ### Phase 7: Commit and Push
-Check git status, create branch with naming convention (`feature/`, `fix/`, `refactor/`), commit with conventional format, push branch.
+Check git status, create branch with naming convention (`feature/`, `fix/`, `refactor/`), commit work as a series of atomic commits (one logical change per commit, Conventional Commits format), push branch.
 
 ### Phase 8: Create Pull Request
 Determine target branch, create PR with `gh pr create`, add labels, display PR summary.
@@ -104,7 +104,7 @@ See [references/phases-detailed.md](references/phases-detailed.md) for detailed 
 | 4. Implement | Write code | Edit files |
 | 5. Test | Run test suite | `npm test` / `mvn test` |
 | 6. Review | Code review | Task(code-reviewer) |
-| 7. Commit | Save changes | `git commit` |
+| 7. Commit | Save changes | `git commit` (atomic — one per logical change) |
 | 8. PR | Create pull request | `gh pr create` |
 
 ## Examples
