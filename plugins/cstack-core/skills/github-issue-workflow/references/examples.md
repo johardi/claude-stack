@@ -125,6 +125,8 @@ Launch code review agent → No critical or major issues found.
 
 ### Phase 7 — Commit and Push
 
+This issue touched three logical units (a validator utility, the controller wiring, and the tests). Land them as three atomic commits, not one sweep, so a reviewer can read the change as a sequence.
+
 ```bash
 # Check status
 git status --porcelain
@@ -135,19 +137,33 @@ git status --porcelain
 # Create branch
 git checkout -b "feature/42-add-email-validation"
 
-# Commit
-git add -A
-git commit -m "feat(validation): add email validation to registration
+# Commit 1 — the validator utility (foundation)
+git add src/utils/validators.ts
+git commit -m "feat(validation): add RFC 5322 email validator
 
-- Implement RFC 5322 email format validation using validator.js
-- Return 400 with descriptive error for invalid emails
-- Add unit tests for edge cases (empty string, malformed, valid formats)
+Wraps validator.js's isEmail() so callers don't have to know which
+library backs it. Later commits build the controller wiring and tests
+on top of this."
 
-Closes #42"
+# Commit 2 — tests for the validator
+git add src/tests/validators.test.ts
+git commit -m "test(validation): cover edge cases for email validator
 
-# Push
+Empty string, whitespace-only, malformed local/domain parts, and the
+valid RFC 5322 forms called out in the issue."
+
+# Commit 3 — controller integration
+git add src/controllers/auth.ts
+git commit -m "feat(auth): reject registrations with invalid emails
+
+Returns 400 with a descriptive error rather than 500ing further
+downstream when the DB constraint trips."
+
+# Push (once, after all commits)
 git push -u origin "feature/42-add-email-validation"
 ```
+
+Note the `Closes #42` trailer is **not** in any commit message — it lives in the PR body in Phase 8 so issue auto-close survives squash-merge policies.
 
 ### Phase 8 — Create Pull Request
 
@@ -268,10 +284,12 @@ Review finds no issues.
 
 ### Phase 7 — Commit and Push
 
+This is a single-purpose change (one-line unit conversion plus a regression test for it), so one commit is correct — the atomic-commits rule is "one purpose per commit", not "always split". Splitting the unit-conversion fix from its regression test would be commit-padding.
+
 ```bash
 git checkout -b "fix/15-login-timeout"
 
-git add -A
+git add src/auth/jwt.ts src/tests/auth-timeout.test.ts
 git commit -m "fix(auth): resolve login timeout issue
 
 JWT token verification was using a 5s timeout instead of 30s
@@ -281,11 +299,12 @@ Root cause: Config timeout (30) was passed directly to jwt.verify()
 which expects milliseconds, not seconds.
 
 Fix: Multiply config timeout by 1000 to convert to milliseconds.
-
-Closes #15"
+Regression test pins the unit conversion."
 
 git push -u origin "fix/15-login-timeout"
 ```
+
+`Closes #15` lives in the PR body (Phase 8), not the commit message.
 
 ### Phase 8 — Create Pull Request
 
@@ -390,12 +409,12 @@ All examples follow the same 8-phase workflow:
 4. **Implement** - Explore, plan, code changes
 5. **Test** - Run full test suite, lint, type checking
 6. **Review** - Code review, fix issues
-7. **Commit** - Branch with naming convention, conventional commit
-8. **PR** - Create PR with issue reference, labels
+7. **Commit** - Branch with naming convention, atomic commits (one logical change per commit, Conventional Commits)
+8. **PR** - Create PR with issue reference (`Closes #N` in body), labels
 
 **Key principles:**
 - User confirms requirements (not parsed from issue)
 - Comprehensive testing before commit
 - Code review prevents shipping bugs
-- Conventional commits and branch naming
-- PR references issue for automatic closure on merge
+- Atomic Conventional Commits (one logical change per commit) and branch naming
+- PR body references issue (`Closes #N`) for automatic closure on merge — not the commit messages, so squash-merge policies don't drop the link
