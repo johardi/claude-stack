@@ -33,6 +33,18 @@
       "keywords": ["ontology", "owl", "odk", "robot", "knowledge-engineering"],
       "category": "knowledge-engineering",
       "strict": false
+    },
+    {
+      "name": "cstack-collab",
+      "source": "./plugins/cstack-collab",
+      "description": "Multi-agent collaboration patterns for Claude Code: orchestrators that fan out across dependent GitHub issues, with one PR per sub-ticket and human-in-the-loop merge gates",
+      "version": "0.1.0",
+      "homepage": "https://github.com/johardi/claude-stack",
+      "repository": "https://github.com/johardi/claude-stack",
+      "license": "MIT",
+      "keywords": ["multi-agent", "orchestration", "github", "workflow", "human-in-the-loop"],
+      "category": "code-development",
+      "strict": false
     }
   ]
 }
