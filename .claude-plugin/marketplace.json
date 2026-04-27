@@ -45,6 +45,18 @@
       "keywords": ["multi-agent", "orchestration", "github", "workflow", "human-in-the-loop"],
       "category": "code-development",
       "strict": false
+    },
+    {
+      "name": "cstack-guardrails",
+      "source": "./plugins/cstack-guardrails",
+      "description": "Always-on git/gh hygiene guards: deny --no-verify, deny git push --force to the default branch, and deny git commit while on the default branch. Set CSTACK_GUARDRAILS_OVERRIDE=1 to bypass for a single command.",
+      "version": "0.1.0",
+      "homepage": "https://github.com/johardi/claude-stack",
+      "repository": "https://github.com/johardi/claude-stack",
+      "license": "MIT",
+      "keywords": ["guardrails", "git", "gh", "safety", "hooks"],
+      "category": "code-development",
+      "strict": false
     }
   ]
 }

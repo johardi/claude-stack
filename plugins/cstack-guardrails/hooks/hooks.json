@@ -1,0 +1,27 @@
+{
+  "description": "Always-on guardrails. Set CSTACK_GUARDRAILS_OVERRIDE=1 to bypass any single hook.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/deny-no-verify.sh",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/deny-force-push-default.sh",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/deny-commit-on-default.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
