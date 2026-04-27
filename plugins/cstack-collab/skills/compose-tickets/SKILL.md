@@ -1,12 +1,12 @@
 ---
-name: draft-feature-tickets
+name: compose-tickets
 description: Help the user turn a feature description into a structured GitHub parent issue with linked sub-tickets, when the feature is too large for a single PR. Use when the user is describing a new feature, refactor, or initiative and the conversation surfaces signals that it should be broken down (touches multiple modules, has natural sequencing, mixes foundational + downstream work, would produce a PR too large to review). Drafts a parent ticket with a tracking checklist and one sub-ticket per atomic deliverable using a standardized format compatible with the orchestrate-tickets skill (Depends on #N markers, Sub-ticket of #N parent reference, and Problem/Analysis/Proposed Solution/Tests/Out-of-Scope sections). Always proposes the decomposition for user confirmation before filing. Does not file anything until the user approves.
 allowed-tools: Bash, Read, Write, Edit, Agent, AskUserQuestion, TodoWrite
 ---
 
-# Draft Feature Tickets
+# Compose Tickets
 
-Walk a planning conversation toward a structured parent GitHub issue plus linked sub-tickets, in a format that the `orchestrate-tickets` skill can execute directly. Two confirmation gates: one before drafting bodies, one before filing.
+Walk a planning conversation toward a structured parent GitHub issue plus linked sub-tickets, in a format that the `orchestrate-tickets` skill can execute directly. Companion to `orchestrate-tickets`: this skill composes the score, that skill performs it. Two confirmation gates: one before drafting bodies, one before filing.
 
 ## When to Use
 
