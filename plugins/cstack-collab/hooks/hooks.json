@@ -1,0 +1,17 @@
+{
+  "description": "Scope-aware guardrails for orchestrate-tickets. Hooks no-op outside an active orchestration (i.e., when .cstack-collab/state.json is not found in or above $PWD).",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/deny-merge.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
