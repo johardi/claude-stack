@@ -1,6 +1,6 @@
 {
   "name": "cstack-collab",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Multi-agent collaboration patterns for Claude Code: orchestrators that fan out across dependent GitHub issues, with one PR per sub-ticket and human-in-the-loop merge gates.",
   "author": {
     "name": "Josef Hardi",

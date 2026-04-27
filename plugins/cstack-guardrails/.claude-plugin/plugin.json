@@ -1,6 +1,6 @@
 {
   "name": "cstack-guardrails",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Always-on git/gh hygiene guards: deny --no-verify, deny git push --force to the default branch, and deny git commit while on the default branch. Set CSTACK_GUARDRAILS_OVERRIDE=1 in the env to bypass for a single command.",
   "author": {
     "name": "Josef Hardi",

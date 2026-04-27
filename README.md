@@ -73,6 +73,51 @@ A Claude Code plugin that provides a 7-step ontology development workflow: scope
 - [Docker](https://docs.docker.com/get-docker/) - Required for ODK tools (ROBOT, owltools, Jena, etc.)
 - [Node.js](https://nodejs.org/) v18+ - Required for ODK wrapper scripts
 
+### cstack-collab
+
+**Multi-agent collaboration patterns** - Coordinate a parent GitHub issue that has been broken into dependent sub-tickets, with one PR per sub-ticket and human-in-the-loop merge gates. Pairs an upfront authoring skill with a runtime orchestrator.
+
+**Skills**:
+- `compose-tickets` - Turn a feature description into a structured parent issue plus standardized sub-tickets that `orchestrate-tickets` can execute directly. Two confirmation gates (decomposition, drafts) and a deterministic linter before filing.
+- `orchestrate-tickets` - Execute a parent's sub-tickets by spawning per-ticket workers in isolated git worktrees. Builds a dependency DAG from `Depends on #N` markers, runs independent tickets in parallel, serializes dependents, and yields to the user between waves for review/merge. Never auto-merges.
+
+**Scripts** (deterministic helpers the skills delegate to):
+
+| Script | Purpose |
+|--------|---------|
+| `state.py` | CRUD over `.cstack-collab/state.json` — the active orchestration state file (parent, waves, per-child PR/branch/merged) |
+| `check-prereqs.sh` | gh/git preflight + default-branch detection; stable exit codes |
+| `build-dag.py` | Construct execution DAG from `Depends on #N` markers; refuses cycles |
+| `wave-status.py` | Poll PR merge state across a wave; rolls a single exit code |
+| `update-parent-checklist.py` | Idempotent parent-issue checklist toggler with a marker comment |
+| `worker-prompt.sh` | Render the worker contract template (single source of truth) |
+| `lint-ticket.py` | Validate a compose-tickets body before `gh issue create` (catches the prose-vs-marker bug) |
+
+**Hooks** (all scope-aware: no-op outside an active orchestration):
+
+| Hook | Enforces |
+|------|----------|
+| `deny-merge` | Refuses `gh pr merge` against any child PR while orchestration is active |
+| `deny-parent-mutations` | Refuses `gh issue close <PARENT>` while children unmerged; refuses parent body rewrites without the cstack-collab marker |
+| `record-worker` | PostToolUse(Agent) — parses worker JSON returns and updates state.json automatically |
+| `session-start-summary` | Surfaces in-progress orchestrations on session start so cold-resumes pick up the right wave |
+
+**Escape hatch**: set `CSTACK_COLLAB_OVERRIDE=1` in the env to bypass any single deny hook with a loud stderr warning.
+
+### cstack-guardrails
+
+**Always-on git/gh hygiene** - Three PreToolUse(Bash) hooks that protect the default branch and discourage skipping pre-commit hooks. Independent of cstack-collab; install either, both, or neither.
+
+**Hooks**:
+
+| Hook | Enforces |
+|------|----------|
+| `deny-no-verify` | Refuses `--no-verify`, `--no-gpg-sign`, and `commit.gpgsign=false` on git/gh commands |
+| `deny-force-push-default` | Refuses `git push --force` (or `-f` / `--force-with-lease`) to the default branch |
+| `deny-commit-on-default` | Refuses `git commit` while on the default branch (encourages branch-per-feature) |
+
+Default branch is detected via `gh repo view`, falling back to `origin/HEAD`. Each hook honors `CSTACK_GUARDRAILS_OVERRIDE=1` for emergency bypass with a loud stderr warning.
+
 ## Installation
 
 ### Prerequisites
@@ -99,6 +144,8 @@ In Claude Code, type `/plugin` and select **"Browse Plugins"**, then:
 1. Browse the available plugins:
    - **cstack-core** - Core development tools with audio feedback and MCP servers
    - **aodk** - AI-powered ontology development with OWL-MCP, ODK/ROBOT, and design patterns
+   - **cstack-collab** - Multi-agent orchestration with worktree-isolated workers and human-in-the-loop merge gates
+   - **cstack-guardrails** - Always-on git/gh hygiene hooks (no-verify, force-push to main, commit on main)
 
 2. Select the plugin(s) you want to install
 3. Choose **"Install now"**
