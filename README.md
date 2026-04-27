@@ -29,6 +29,15 @@ Claude Stack is a modular plugin ecosystem designed to supercharge your developm
 - [Serena](https://github.com/oraios/serena) - Advanced IDE assistant with code navigation and analysis
 - [ref-tools-mcp](https://www.npmjs.com/package/ref-tools-mcp) - Library and framework documentation search
 
+**Usage**: Skills auto-activate from context. Reference a GitHub issue and the workflow takes over:
+
+```
+"Fix issue #123"
+"Resolve the bug reported in #456"
+```
+
+The `github-issue-workflow` skill walks you through fetch → analyze → implement → verify → review → commit → PR.
+
 ### cstack-collab
 
 **Multi-agent collaboration patterns** - Coordinate a parent GitHub issue that has been broken into dependent sub-tickets, with one PR per sub-ticket and human-in-the-loop merge gates. Pairs an upfront authoring skill with a runtime orchestrator.
@@ -60,6 +69,20 @@ Claude Stack is a modular plugin ecosystem designed to supercharge your developm
 
 **Escape hatch**: set `CSTACK_COLLAB_OVERRIDE=1` in the env to bypass any single deny hook with a loud stderr warning.
 
+**Usage**: invoke the two skills in order. First, draft the decomposition:
+
+```
+/compose-tickets
+```
+
+You describe a feature, the skill proposes a parent + sub-tickets, you confirm twice (slicing, then drafts), and it files them on GitHub in the standardized format. Then run the orchestrator:
+
+```
+/orchestrate-tickets 64
+```
+
+It builds the dependency DAG, spawns one worker per ticket in an isolated worktree, and yields to you for review/merge between waves.
+
 ### cstack-guardrails
 
 **Always-on git/gh hygiene** - Three PreToolUse(Bash) hooks that protect the default branch and discourage skipping pre-commit hooks. Independent of cstack-collab; install either, both, or neither.
@@ -74,95 +97,35 @@ Claude Stack is a modular plugin ecosystem designed to supercharge your developm
 
 Default branch is detected via `gh repo view`, falling back to `origin/HEAD`. Each hook honors `CSTACK_GUARDRAILS_OVERRIDE=1` for emergency bypass with a loud stderr warning.
 
+**Usage**: hooks fire automatically on every Bash tool call. When one denies a command, the stderr message tells you which guard fired and how to bypass it for one command:
+
+```bash
+CSTACK_GUARDRAILS_OVERRIDE=1 git commit --no-verify -m "emergency hotfix"
+```
+
+No skills, no slash commands — install and forget.
+
 ## Installation
 
-### Prerequisites
-
+**Prerequisites**:
 - [Claude Code](https://claude.com/claude-code) installed
 - Python 3.x (for audio hooks in cstack-core)
-- Git (for version control integration)
+- Git
 
-### Installing Plugins
+In Claude Code, type `/plugin` and:
 
-Claude Stack plugins are distributed through the Claude Code Marketplace system. All installation is done interactively through Claude Code.
+1. **Add marketplace** → enter `johardi/claude-stack` and confirm.
+2. **Browse plugins** → pick from:
+   - **cstack-core** — core development tools with audio feedback and MCP servers
+   - **cstack-collab** — multi-agent orchestration with worktree-isolated workers and human-in-the-loop merge gates
+   - **cstack-guardrails** — always-on git/gh hygiene hooks
+3. **Install now** → restart Claude Code when prompted.
 
-#### Step 1: Add the Claude Stack Marketplace
+`/plugin` also handles updates, enable/disable, and uninstall — no extra config needed.
 
-In Claude Code, type `/plugin` and select **"Add marketplace"**, then:
+## Troubleshooting
 
-1. Enter the GitHub repository: `johardi/claude-stack`
-2. Confirm to add the marketplace
-
-#### Step 2: Install Desired Plugins
-
-In Claude Code, type `/plugin` and select **"Browse Plugins"**, then:
-
-1. Browse the available plugins:
-   - **cstack-core** - Core development tools with audio feedback and MCP servers
-   - **cstack-collab** - Multi-agent orchestration with worktree-isolated workers and human-in-the-loop merge gates
-   - **cstack-guardrails** - Always-on git/gh hygiene hooks (no-verify, force-push to main, commit on main)
-
-2. Select the plugin(s) you want to install
-3. Choose **"Install now"**
-4. Restart Claude Code when prompted
-
-#### Step 3: Verify Installation
-
-Type `/help` in Claude Code to verify that new skills are available.
-
-#### Team/Repository Setup (Optional)
-
-For team-wide plugin distribution, add this to your repository's `.claude/settings.json`:
-
-```json
-{
-  "extraKnownMarketplaces": {
-    "claude-stack": {
-      "source": {
-        "source": "github",
-        "repo": "johardi/claude-stack"
-      }
-    }
-  },
-  "plugins": [
-    "cstack-core@claude-stack"
-  ]
-}
-```
-
-When team members trust the folder, they'll automatically get the marketplace and plugins configured.
-
-#### Managing Plugins
-
-Use `/plugin` in Claude Code to access plugin management:
-- **Update marketplace** - Refresh to get latest plugin versions
-- **Enable/Disable** - Toggle plugins without uninstalling
-- **Uninstall** - Remove plugins completely
-
-## Usage
-
-### Using Skills
-
-Skills are automatically activated based on task context. For example, when you reference a GitHub issue:
-
-```
-"Fix issue #123"
-"Resolve the bug reported in #456"
-```
-
-The `github-issue-workflow` skill activates and guides you through the 8-phase resolution process.
-
-### Audio Notifications
-
-The cstack-core plugin includes audio feedback for various Claude Code events:
-
-- **Notification**: Claude is ready
-- **Edit/Write**: File operations
-- **Bash**: Command execution
-- **TodoWrite**: Task list updates
-- **Stop**: Task completion
-
-#### Troubleshooting Audio
+### Audio not playing (cstack-core)
 
 If you're not hearing sounds:
 
@@ -196,6 +159,7 @@ MIT License - see LICENSE file for details.
 
 ## Credits
 
+- **github-issue-workflow** skill is based on code from [developer-kit](https://github.com/giuseppe-trisciuoglio/developer-kit) by [Giuseppe Trisciuoglio](https://github.com/giuseppe-trisciuoglio), MIT licensed
 - **karpathy-guidelines** skill by [Jiayuan Zhang](https://github.com/forrestchang) ([@forrestchang](https://github.com/forrestchang)), from [andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)
 - Audio hook implementation inspired by [Greg Baugues](https://www.haihai.ai/hooks/)
 - Built for [Claude Code](https://claude.com/claude-code) by Anthropic
