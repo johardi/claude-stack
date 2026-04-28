@@ -7,14 +7,14 @@
   },
   "metadata": {
     "description": "My personal plugins for code development and standardization that provides reusable components, agents, and tools to maintain consistency across projects",
-    "version": "1.4.0"
+    "version": "1.5.0"
   },
   "plugins": [
     {
       "name": "cstack-core",
       "source": "./plugins/cstack-core",
       "description": "Essential development bundle with onboarding commands, GitHub issue analysis and fixes, audio notification hooks on Claude Code events, and integrated MCP servers",
-      "version": "1.7.0",
+      "version": "1.8.0",
       "homepage": "https://github.com/johardi/claude-stack",
       "repository": "https://github.com/johardi/claude-stack",
       "license": "MIT",
@@ -26,7 +26,7 @@
       "name": "cstack-collab",
       "source": "./plugins/cstack-collab",
       "description": "Multi-agent collaboration patterns for Claude Code: orchestrators that fan out across dependent GitHub issues, with one PR per sub-ticket and human-in-the-loop merge gates",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "homepage": "https://github.com/johardi/claude-stack",
       "repository": "https://github.com/johardi/claude-stack",
       "license": "MIT",
