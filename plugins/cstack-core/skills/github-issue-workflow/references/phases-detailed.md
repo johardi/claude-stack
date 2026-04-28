@@ -296,6 +296,8 @@ git checkout -b "$BRANCH_NAME"
 
 3. **Stage and commit as a series of atomic commits** following Conventional Commits.
 
+   **"Atomic" means one *logical change* per commit, NOT one *file* per commit.** A logical change usually spans several files — a model + its migration, a controller + its test, a component + its stylesheet. Group by purpose, not by file boundary. The opposite failure mode (a separate commit for every file you touched) is just as bad as the single mega-commit it tries to replace, and is much more annoying to review.
+
    **Do not** stage the whole tree with `git add -A` and ship one mega-commit. Instead, group your changes by logical unit and produce one commit per unit, in an order that reads as a coherent sequence to a reviewer.
 
    **One commit per logical change.** Examples of logical units that should usually be their own commit:
