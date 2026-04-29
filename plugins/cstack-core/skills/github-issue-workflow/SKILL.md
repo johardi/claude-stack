@@ -87,7 +87,7 @@ Run full test suite, linters, static analysis, verify against acceptance criteri
 Launch code review sub-agent, categorize findings by severity, address critical/major issues, present minor issues to user.
 
 ### Phase 7: Commit and Push
-Check git status, create branch with naming convention (`feature/`, `fix/`, `refactor/`), commit work as a series of atomic commits (one logical change per commit, Conventional Commits format), push branch.
+Check git status, create branch with naming convention (`feature/`, `fix/`, `refactor/`). Before staging, list the logical units you changed in 3–6 words each (e.g. "new helper", "refactor caller", "new error class", "tests"); default to one commit per unit, only bundle tightly coupled units. Commit each in Conventional Commits format, then push branch.
 
 ### Phase 8: Create Pull Request
 Determine target branch, create PR with `gh pr create`, add labels, display PR summary.
