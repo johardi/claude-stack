@@ -7,14 +7,14 @@
   },
   "metadata": {
     "description": "My personal plugins for code development and standardization that provides reusable components, agents, and tools to maintain consistency across projects",
-    "version": "1.9.0"
+    "version": "1.10.0"
   },
   "plugins": [
     {
       "name": "cstack-core",
       "source": "./plugins/cstack-core",
       "description": "Essential development bundle with onboarding commands, GitHub issue analysis and fixes, audio notification hooks on Claude Code events, and integrated MCP servers",
-      "version": "1.11.0",
+      "version": "1.12.0",
       "homepage": "https://github.com/johardi/claude-stack",
       "repository": "https://github.com/johardi/claude-stack",
       "license": "MIT",
@@ -43,6 +43,18 @@
       "repository": "https://github.com/johardi/claude-stack",
       "license": "MIT",
       "keywords": ["guardrails", "git", "gh", "safety", "hooks"],
+      "category": "code-development",
+      "strict": false
+    },
+    {
+      "name": "cstack-frugal",
+      "source": "./plugins/cstack-frugal",
+      "description": "Token-saving hook that pipes Bash command output through ztk rewrite, selectively compressing noise-heavy output while exempting commands where every line matters (tests, diffs, linters, file reads).",
+      "version": "1.0.0",
+      "homepage": "https://github.com/johardi/claude-stack",
+      "repository": "https://github.com/johardi/claude-stack",
+      "license": "MIT",
+      "keywords": ["tokens", "ztk", "context", "frugal", "hooks"],
       "category": "code-development",
       "strict": false
     }
