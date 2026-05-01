@@ -13,19 +13,10 @@
       }]
     }],
     "PreToolUse": [{
-      "matcher": "Edit|MultiEdit|Write|NotebookEdit|TodoWrite",
+      "matcher": "Edit|MultiEdit|Write|NotebookEdit|TodoWrite|Bash",
       "hooks": [{
         "type": "command",
         "command": "test -f \"${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py\" && python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py\" || true"
-      }]
-    }, {
-      "matcher": "Bash",
-      "hooks": [{
-        "type": "command",
-        "command": "test -f \"${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py\" && python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/play-sound/play_sound.py\" || true"
-      }, {
-        "type": "command",
-        "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/ztk_rewrite.sh"
       }]
     }]
   }
