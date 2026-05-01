@@ -46,7 +46,7 @@ EXEMPT_PATTERN+='rubocop|'
 # Git commands where content matters
 EXEMPT_PATTERN+='git\s+diff|'
 EXEMPT_PATTERN+='git\s+show|'
-EXEMPT_PATTERN+='git\s+log.*(--stat|--patch|-p\b)|'
+EXEMPT_PATTERN+='git\s+log|'
 
 # File reading / search
 EXEMPT_PATTERN+='cat\s|'
