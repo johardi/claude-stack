@@ -65,7 +65,7 @@ fi
 # --- Assemble output ---
 # Parts are joined with " | " separator; empty parts are skipped.
 PARTS=()
-[ -n "$WORK_DIR" ]    && PARTS+=("📁 $WORK_DIR")
+[ -n "$WORK_DIR" ]    && PARTS+=("📁 ${WORK_DIR/#$HOME/\~}")
 [ -n "$BRANCH" ]      && PARTS+=("⎇ $BRANCH")
 [ -n "$MODEL_LABEL" ] && PARTS+=("⚡ $MODEL_LABEL")
 [ -n "$TOKEN_LABEL" ] && PARTS+=("$TOKEN_LABEL")
