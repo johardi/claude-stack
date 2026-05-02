@@ -1,5 +1,12 @@
 {
   "hooks": {
+    "SessionStart": [{
+      "matcher": "startup",
+      "hooks": [{
+        "type": "command",
+        "command": "test -f \"${CLAUDE_PLUGIN_ROOT}/scripts/statusline/setup-statusline.sh\" && bash \"${CLAUDE_PLUGIN_ROOT}/scripts/statusline/setup-statusline.sh\" || true"
+      }]
+    }],
     "Notification": [{
       "hooks": [{
         "type": "command",
