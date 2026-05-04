@@ -7,14 +7,14 @@
   },
   "metadata": {
     "description": "My personal plugins for code development and standardization that provides reusable components, agents, and tools to maintain consistency across projects",
-    "version": "1.11.0"
+    "version": "1.12.0"
   },
   "plugins": [
     {
       "name": "cstack-core",
       "source": "./plugins/cstack-core",
       "description": "Essential development bundle with development skills, audio notification hooks on Claude Code events, integrated MCP servers, and a statusline showing essential information about the current session",
-      "version": "1.13.0",
+      "version": "1.14.0",
       "homepage": "https://github.com/johardi/claude-stack",
       "repository": "https://github.com/johardi/claude-stack",
       "license": "MIT",
