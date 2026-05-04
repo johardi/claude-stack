@@ -38,4 +38,4 @@ jq --arg cmd "bash \"$WRAPPER\"" \
 # Clear the nudge counter.
 rm -f "$NUDGE_FILE"
 
-echo "[cstack-core] ✅ Statusline installed. Restart Claude Code to see it." >&2
+echo "[cstack-core] ✅ Statusline installed." >&2
