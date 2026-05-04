@@ -1,10 +1,10 @@
 #!/bin/bash
 # install-statusline.sh — Installer for the cstack-core statusline.
-# Called by Claude when the user agrees to install (via the nudge flow),
-# or invoked manually via the /install-cstack-statusline skill.
+# Called by Claude when the user agrees to install or replace (via the nudge
+# flow), or invoked manually via the /install-cstack-statusline skill.
 # Writes a stable wrapper at ~/.claude/cstack-statusline.sh that always
 # resolves the latest cached version at runtime — no path updates needed
-# when cstack-core upgrades.
+# when cstack-core upgrades. Overwrites any existing statusLine configuration.
 
 SETTINGS_FILE="$HOME/.claude/settings.json"
 WRAPPER="$HOME/.claude/cstack-statusline.sh"
@@ -14,15 +14,6 @@ NUDGE_FILE="$HOME/.claude/.cstack-statusline-nudge"
 if ! command -v jq >/dev/null 2>&1; then
   echo "[cstack-core] ❌ jq is required to install the statusline. Install it and try again." >&2
   exit 1
-fi
-
-# Already configured — nothing to do.
-if [ -f "$SETTINGS_FILE" ]; then
-  EXISTING=$(jq -r '.statusLine // empty' "$SETTINGS_FILE" 2>/dev/null)
-  if [ -n "$EXISTING" ]; then
-    echo "[cstack-core] ℹ️  Statusline is already configured." >&2
-    exit 0
-  fi
 fi
 
 # Write the stable wrapper script.
