@@ -60,11 +60,11 @@ NUDGE_NUM=$((COUNT + 1))
 
 # --- Case 1: No statusline configured.
 if [ -z "$EXISTING_CMD" ]; then
-  printf '{"additionalContext":"cstack-core: The statusline feature (shows pwd, git branch, model, tokens, and context %%) is available but not yet configured. This is nudge %d/3. Please let the user know and ask if they would like to install it. If yes, run: bash \\"%s\\""}' \
+  printf '[cstack-core] The statusline feature (shows pwd, git branch, model, tokens, and context %%) is available but not yet configured (nudge %d/3). Please let the user know and ask if they would like to install it. If yes, run: bash "%s"' \
     "$NUDGE_NUM" "$INSTALL_SCRIPT"
   exit 0
 fi
 
 # --- Case 4: Foreign statusline configured — ask permission to replace.
-printf '{"additionalContext":"cstack-core: A statusline is already configured but it does not come from cstack-core. The cstack-core statusline (shows pwd, git branch, model, tokens, and context %%) is available as a replacement. This is nudge %d/3. Please let the user know and ask if they would like to replace their current statusline with the cstack-core one. Install only if the user gives permission. If yes, run: bash \\"%s\\""}' \
+printf '[cstack-core] A statusline is already configured but it does not come from cstack-core. The cstack-core statusline (shows pwd, git branch, model, tokens, and context %%) is available as a replacement (nudge %d/3). Please let the user know and ask if they would like to replace their current statusline with the cstack-core one. Install only if the user gives permission. If yes, run: bash "%s"' \
   "$NUDGE_NUM" "$INSTALL_SCRIPT"
