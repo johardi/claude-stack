@@ -1,7 +1,6 @@
 {
   "hooks": {
-    "SessionStart": [{
-      "matcher": "startup",
+    "UserPromptSubmit": [{
       "hooks": [{
         "type": "command",
         "command": "test -f \"${CLAUDE_PLUGIN_ROOT}/scripts/statusline/setup-statusline.sh\" && bash \"${CLAUDE_PLUGIN_ROOT}/scripts/statusline/setup-statusline.sh\" || true"
